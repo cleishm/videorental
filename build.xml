@@ -1,0 +1,279 @@
+<project name="videorental" default="build">
+
+    <property environment="env"/>
+    <property name="app.name" value="${ant.project.name}"/>
+
+    <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+        <classpath>
+            <pathelement location="lib/tools/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <!-- Source Directories -->
+    <property name="main.src.dir" value="${basedir}/src/main/java"/>
+    <property name="main.resources.dir" value="${basedir}/src/main/resources"/>
+    <property name="util.src.dir" value="${basedir}/src/util/java"/>
+    <property name="unit.src.dir" value="${basedir}/src/unit/java"/>
+    <property name="acceptance.src.dir" value="${basedir}/src/acceptance/java"/>
+
+    <property name="webapp.dir" value="${basedir}/src/main/webapp"/>
+    <property name="lib.dir" value="${basedir}/lib"/>
+
+    <property name="env.CRUISE_PIPELINE_LABEL" value="dev"/>
+    <property name="build.label" value="${env.CRUISE_PIPELINE_LABEL}"/>
+
+    <!-- Output Directories -->
+    <property name="target.dir" value="${basedir}/target"/>
+    <property name="classes.dir" value="${target.dir}/classes"/>
+    <property name="dist.dir" value="${target.dir}/dist"/>
+    <property name="reports.dir" value="${target.dir}/reports"/>
+
+    <!-- Output Files -->
+    <property name="main.war" value="${dist.dir}/${app.name}-${build.label}.war"/>
+    <property name="main.jar" value="${target.dir}/${app.name}.jar"/>
+    <property name="util.jar" value="${target.dir}/${app.name}-util.jar"/>
+    <property name="unit.jar" value="${target.dir}/${app.name}-unit.jar"/>
+    <property name="acceptance.jar"
+            value="${target.dir}/${app.name}-acceptance.jar"/>
+
+    <!-- Testing -->
+    <property name="htmlunit.webdriver.class"
+            value="org.openqa.selenium.htmlunit.HtmlUnitDriver"/>
+    <property name="ie.webdriver.class"
+            value="org.openqa.selenium.ie.InternetExplorerDriver"/>
+    <property name="firefox.webdriver.class"
+            value="org.openqa.selenium.firefox.FirefoxDriver"/>
+    <property name="chrome.webdriver.class"
+            value="org.openqa.selenium.chrome.ChromeDriver"/>
+
+    <property name="application.host" value="localhost"/>
+    <property name="application.port" value="8080"/>
+    <property name="application.url" value="http://${application.host}:${application.port}/${app.name}/"/>
+
+    <property name="jetty.stop.port" value="8079"/>
+
+    <!-- Paths -->
+    <fileset id="runtime.libraries" dir="${lib.dir}/runtime" includes="*.jar"/>
+    <fileset id="build.libraries" dir="${lib.dir}/build" includes="*.jar"/>
+    <fileset id="tools.libraries" dir="${lib.dir}/tools" includes="*.jar"/>
+
+    <path id="main.build.classpath">
+    	<fileset refid="runtime.libraries"/>
+    	<fileset refid="build.libraries"/>
+    </path>
+
+    <path id="util.build.classpath">
+        <fileset refid="tools.libraries"/>
+    </path>
+
+    <path id="util.runtime.classpath">
+        <fileset refid="build.libraries"/>
+        <path refid="util.build.classpath"/>
+        <pathelement location="${util.jar}"/>
+    </path>
+
+    <path id="unit.build.classpath">
+    	<pathelement location="${main.jar}"/>
+        <path refid="main.build.classpath"/>
+    	<fileset refid="runtime.libraries"/>
+        <fileset refid="build.libraries"/>
+        <fileset refid="tools.libraries"/>
+    </path>
+
+    <path id="unit.runtime.classpath">
+        <path refid="unit.build.classpath"/>
+        <pathelement location="${unit.jar}"/>
+    </path>
+
+    <path id="acceptance.build.classpath">
+        <fileset refid="tools.libraries"/>
+    </path>
+
+    <path id="acceptance.runtime.classpath">
+        <path refid="acceptance.build.classpath"/>
+        <path refid="util.runtime.classpath"/>
+        <pathelement location="${acceptance.jar}"/>
+    </path>
+
+    <!-- MacroDefs -->
+    <macrodef name="compileToJar">
+        <attribute name="srcdir"/>
+        <attribute name="destfile"/>
+        <attribute name="classpathref"/>
+        <sequential>
+            <outofdate>
+                <sourcefiles>
+                    <pathelement path="build.xml"/>
+                    <fileset dir="@{srcdir}"/>
+                </sourcefiles>
+                <targetfiles path="@{destfile}"/>
+                <sequential>
+                    <mkdir dir="${classes.dir}"/>
+                    <javac srcdir="@{srcdir}" destdir="${classes.dir}"
+                            classpathref="@{classpathref}" source="1.6"
+                            target="1.6" debug="true"
+                            includeantruntime="false"/>
+                    <jar destfile="@{destfile}" basedir="${classes.dir}">
+                        <manifest>
+                            <attribute name="Build-Label"
+                                    value="${build.label}"/>
+                        </manifest>
+                    </jar>
+                    <delete dir="${classes.dir}"/>
+                </sequential>
+            </outofdate>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="testAndReport">
+        <attribute name="type"/>
+        <attribute name="srcdir"/>
+        <attribute name="classpathref"/>
+        <sequential>
+            <mkdir dir="${reports.dir}/@{type}"/>
+            <junit printsummary="yes" fork="true" haltonerror="false"
+                    haltonfailure="false" forkmode="once">
+                <classpath>
+                    <path refid="@{classpathref}"/>
+                </classpath>
+                <formatter type="xml"/>
+
+                <sysproperty key="webdriver.class" value="${webdriver.class}"/>
+                <sysproperty key="application.url" value="${application.url}"/>
+
+                <batchtest todir="${reports.dir}/@{type}"
+                        failureproperty="@{type}.test.failed">
+                    <fileset dir="@{srcdir}">
+                        <include name="**/*Test.java"/>
+                    </fileset>
+                </batchtest>
+            </junit>
+
+            <mkdir dir="${reports.dir}/@{type}-html"/>
+
+            <junitreport todir="${reports.dir}/@{type}-html">
+                <fileset dir="${reports.dir}/@{type}">
+                    <include name="TEST-*.xml"/>
+                </fileset>
+                <report format="frames" todir="${reports.dir}/@{type}-html"/>
+            </junitreport>
+
+            <fail if="@{type}.test.failed" message="@{type} tests failed"/>
+        </sequential>
+    </macrodef>
+
+    <macrodef name="jettyStartServer">
+        <attribute name="war"/>
+    	<sequential>
+            <echo message="starting jetty"/>
+            <java classname="com.thoughtworks.jetty.JettyLauncher"
+                    classpathref="acceptance.runtime.classpath" fork="true">
+                <arg value="-start"/>
+                <arg value="${application.port}"/>
+                <arg value="${jetty.stop.port}"/>
+                <arg value="@{war}"/>
+            </java>
+    	</sequential>
+    </macrodef>
+
+    <macrodef name="jettyStopServer">
+    	<sequential>
+            <java classname="com.thoughtworks.JettyLauncher"
+                    classpathref="acceptance.class.path" fork="true">
+                <arg value="-stop"/>
+                <arg value="${jetty.stop.port}"/>
+            </java>
+    	</sequential>
+    </macrodef>
+
+    <!-- Targets -->
+    <target name="clean">
+        <delete dir="${target.dir}"/>
+    </target>
+
+    <target name="jar">
+        <compileToJar srcdir="${main.src.dir}"
+                destfile="${main.jar}"
+                classpathref="main.build.classpath"/>
+    </target>
+
+    <target name="unit-jar" depends="jar">
+        <compileToJar srcdir="${unit.src.dir}"
+                destfile="${unit.jar}"
+                classpathref="unit.build.classpath"/>
+    </target>
+
+    <target name="acceptance-jar">
+        <compileToJar srcdir="${acceptance.src.dir}"
+                destfile="${acceptance.jar}"
+                classpathref="acceptance.build.classpath"/>
+    </target>
+
+    <target name="util-jar">
+        <compileToJar srcdir="${util.src.dir}"
+                destfile="${util.jar}"
+                classpathref="util.build.classpath"/>
+    </target>
+
+    <target name="war" depends="jar" description="Create distributable package(s)">
+        <echo message="Packaging for build label ${build.label}"/>
+        <mkdir dir="${dist.dir}"/>
+
+        <war warfile="${main.war}" basedir="${webapp.dir}">
+            <manifest>
+                <attribute name="Label" value="${build.label}"/>
+            </manifest>
+	    <lib refid="runtime.libraries"/>
+            <lib file="${main.jar}"/>
+	    <classes dir="${main.resources.dir}"/>
+        </war>
+    </target>
+
+    <target name="unit-test" depends="unit-jar" description="Run unit tests">
+    	<testAndReport type="unit" srcdir="${unit.src.dir}"
+                classpathref="unit.runtime.classpath"/>
+    </target>
+
+    <target name="acceptance-test" depends="acceptance-jar, war, util-jar"
+            description="Run acceptance tests">
+        <parallel>
+            <daemons>
+                <jettyStartServer war="${main.war}"/>
+            </daemons>
+            <sequential>
+                <echo message="Waiting for jetty" />
+                <waitfor>
+                    <socket server="127.0.0.1" port="${application.port}"/>
+                </waitfor>
+                <!-- Default driver is htmlunit -->
+                <property name="webdriver.class"
+                    value="${htmlunit.webdriver.class}"/>
+                <testAndReport type="acceptance" srcdir="${acceptance.src.dir}"
+                        classpathref="acceptance.runtime.classpath"/>
+            </sequential>
+        </parallel>
+    </target>
+
+    <!-- Helpers/Wrappers -->
+    <target name="build" depends="unit-test, acceptance-test, war"
+            description="Produce all artifacts"/>
+    <target name="rebuild" depends="clean, build"
+            description="Clean and build"/>
+
+    <target name="jetty" depends="war, util-jar"
+            description="Start jetty with application">
+        <jettyStartServer war="${main.war}"/>
+    </target>
+
+    <target name="ie-webdriver">
+        <property name="webdriver.class" value="${ie.webdriver.class}"/>
+    </target>
+
+    <target name="firefox-webdriver">
+        <property name="webdriver.class" value="${firefox.webdriver.class}"/>
+    </target>
+
+    <target name="chrome-webdriver">
+        <property name="webdriver.class" value="${chrome.webdriver.class}"/>
+    </target>
+</project>
