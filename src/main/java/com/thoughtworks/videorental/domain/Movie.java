@@ -4,36 +4,16 @@ import javax.persistence.Entity;
 
 @Entity
 public class Movie {
-	public static final int CHILDRENS = 2;
-	public static final int REGULAR = 0;
-	public static final int NEW_RELEASE = 1;
+	public static final Price CHILDRENS = new ChildrensPrice();
+	public static final Price REGULAR = new RegularPrice();
+	public static final Price NEW_RELEASE = new NewReleasePrice();
 
 	private String title;
 	private Price price;
 
-	public Movie(String title, int priceCode) {
+	public Movie(String title, Price price) {
 		this.title = title;
-		setPriceCode(priceCode);
-	}
-
-	public int getPriceCode() {
-		return getPrice().getPriceCode();
-	}
-
-	public void setPriceCode(int arg) {
-		switch (arg) {
-		case REGULAR:
-			setPrice(new RegularPrice());
-			break;
-		case CHILDRENS:
-			setPrice(new ChildrensPrice());
-			break;
-		case NEW_RELEASE:
-			setPrice(new NewReleasePrice());
-			break;
-		default:
-			throw new IllegalArgumentException("Incorrect Price Code");
-		}
+		setPrice(price);
 	}
 
 	public String getTitle() {

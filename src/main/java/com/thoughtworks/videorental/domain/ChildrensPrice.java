@@ -2,11 +2,6 @@ package com.thoughtworks.videorental.domain;
 
 public class ChildrensPrice implements Price {
 
-	@Override
-	public int getPriceCode() {
-		return Movie.CHILDRENS;
-	}
-
 	public double getCharge(final int daysRented) {
 		double result = 1.5;
 		if (daysRented > 3)

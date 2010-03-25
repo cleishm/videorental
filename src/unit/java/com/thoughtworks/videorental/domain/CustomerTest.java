@@ -48,7 +48,7 @@ public class CustomerTest {
 
 	@Test
     public void testChange() throws Exception {
-    	la.setPriceCode(Movie.REGULAR);
+    	la.setPrice(Movie.REGULAR);
         equalsFile("1st Output", "outputChange", dinsdale.statement());
     }
     	
