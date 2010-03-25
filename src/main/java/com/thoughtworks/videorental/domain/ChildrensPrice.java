@@ -1,6 +1,6 @@
 package com.thoughtworks.videorental.domain;
 
-public class ChildrensPrice extends Price {
+public class ChildrensPrice implements Price {
 
 	@Override
 	public int getPriceCode() {
@@ -12,6 +12,10 @@ public class ChildrensPrice extends Price {
 		if (daysRented > 3)
 			result += (daysRented - 3) * 1.5;
 		return result;
+	}
+
+	public int getFrequentRenterPoints(final int daysRented) {
+		return 1;
 	}
 
 }

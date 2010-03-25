@@ -1,6 +1,7 @@
 package com.thoughtworks.videorental.domain;
 
-public abstract class Price {
-	abstract public int getPriceCode();
-	abstract public double getCharge(int daysRented); 
+public interface Price {
+	int getPriceCode();
+	double getCharge(int daysRented);
+	int getFrequentRenterPoints(int daysRented);
 }

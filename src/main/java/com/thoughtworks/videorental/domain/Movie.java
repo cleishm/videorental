@@ -40,15 +40,6 @@ public class Movie {
 		return title;
 	}
 
-	public int getFrequentRenterPoints(final int daysRented) {
-		// add bonus for a two day new release rental
-		if ((getPriceCode() == Movie.NEW_RELEASE)
-				&& daysRented > 1)
-			return 2;
-		else
-			return 1;
-	}
-
 	public void setPrice(Price price) {
 		this.price = price;
 	}

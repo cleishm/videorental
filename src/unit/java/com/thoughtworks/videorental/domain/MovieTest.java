@@ -12,16 +12,16 @@ public class MovieTest {
 	
 	@Test
 	public void shouldCalculateCorrentFrequentRenterPointsForNonNewReleaseMovie() throws Exception {
-    	assertEquals(1, REGULAR_MOVIE.getFrequentRenterPoints(1));
-    	assertEquals(1, REGULAR_MOVIE.getFrequentRenterPoints(4));
-    	assertEquals(1, CHILDRENS_MOVIE.getFrequentRenterPoints(1));
-    	assertEquals(1, CHILDRENS_MOVIE.getFrequentRenterPoints(4));
+    	assertEquals(1, REGULAR_MOVIE.getPrice().getFrequentRenterPoints(1));
+    	assertEquals(1, REGULAR_MOVIE.getPrice().getFrequentRenterPoints(4));
+    	assertEquals(1, CHILDRENS_MOVIE.getPrice().getFrequentRenterPoints(1));
+    	assertEquals(1, CHILDRENS_MOVIE.getPrice().getFrequentRenterPoints(4));
 	}
 	
 	@Test
 	public void shouldCalculateCorrentFrequentRenterPointsForNewReleaseMovie() throws Exception {
-    	assertEquals(1, NEW_RELEASE_MOVIE.getFrequentRenterPoints(1));
-    	assertEquals(2, NEW_RELEASE_MOVIE.getFrequentRenterPoints(2));
-    	assertEquals(2, NEW_RELEASE_MOVIE.getFrequentRenterPoints(3));
+    	assertEquals(1, NEW_RELEASE_MOVIE.getPrice().getFrequentRenterPoints(1));
+    	assertEquals(2, NEW_RELEASE_MOVIE.getPrice().getFrequentRenterPoints(2));
+    	assertEquals(2, NEW_RELEASE_MOVIE.getPrice().getFrequentRenterPoints(3));
 	}
 }
