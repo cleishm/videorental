@@ -33,4 +33,19 @@ public class MovieTest {
 		assertEquals(3.0, CHILDRENS_MOVIE.getCharge(4));
 		assertEquals(4.5, CHILDRENS_MOVIE.getCharge(5));
 	}
+	
+	@Test
+	public void shouldCalculateCorrentFrequentRenterPointsForNonNewReleaseMovie() throws Exception {
+    	assertEquals(1, REGULAR_MOVIE.getFrequentRenterPoints(1));
+    	assertEquals(1, REGULAR_MOVIE.getFrequentRenterPoints(4));
+    	assertEquals(1, CHILDRENS_MOVIE.getFrequentRenterPoints(1));
+    	assertEquals(1, CHILDRENS_MOVIE.getFrequentRenterPoints(4));
+	}
+	
+	@Test
+	public void shouldCalculateCorrentFrequentRenterPointsForNewReleaseMovie() throws Exception {
+    	assertEquals(1, NEW_RELEASE_MOVIE.getFrequentRenterPoints(1));
+    	assertEquals(2, NEW_RELEASE_MOVIE.getFrequentRenterPoints(2));
+    	assertEquals(2, NEW_RELEASE_MOVIE.getFrequentRenterPoints(3));
+	}
 }
