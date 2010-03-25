@@ -33,4 +33,19 @@ public class RentalTest {
 		assertEquals(3.0, new Rental(CHILDRENS_MOVIE, 4).getCharge());
 		assertEquals(4.5, new Rental(CHILDRENS_MOVIE, 5).getCharge());
 	}
+	
+	@Test
+	public void shouldCalculateCorrentFrequentRenterPointsForNonNewReleaseMovie() throws Exception {
+    	assertEquals(1, new Rental(REGULAR_MOVIE, 1).getFrequentRenterPoints());
+    	assertEquals(1, new Rental(REGULAR_MOVIE, 4).getFrequentRenterPoints());
+    	assertEquals(1, new Rental(CHILDRENS_MOVIE, 1).getFrequentRenterPoints());
+    	assertEquals(1, new Rental(CHILDRENS_MOVIE, 4).getFrequentRenterPoints());
+	}
+	
+	@Test
+	public void shouldCalculateCorrentFrequentRenterPointsForNewReleaseMovie() throws Exception {
+    	assertEquals(1, new Rental(NEW_RELEASE_MOVIE, 1).getFrequentRenterPoints());
+    	assertEquals(2, new Rental(NEW_RELEASE_MOVIE, 2).getFrequentRenterPoints());
+    	assertEquals(2, new Rental(NEW_RELEASE_MOVIE, 3).getFrequentRenterPoints());
+	}
 }
