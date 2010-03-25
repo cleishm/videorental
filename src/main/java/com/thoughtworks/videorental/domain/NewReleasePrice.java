@@ -7,4 +7,8 @@ public class NewReleasePrice extends Price {
 		return Movie.NEW_RELEASE;
 	}
 
+	public double getCharge(final int daysRented) {
+		return daysRented * 3;
+	}
+
 }
