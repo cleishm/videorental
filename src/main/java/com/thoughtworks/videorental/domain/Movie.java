@@ -17,19 +17,19 @@ public class Movie {
 	}
 
 	public int getPriceCode() {
-		return price.getPriceCode();
+		return getPrice().getPriceCode();
 	}
 
 	public void setPriceCode(int arg) {
 		switch (arg) {
 		case REGULAR:
-			price = new RegularPrice();
+			setPrice(new RegularPrice());
 			break;
 		case CHILDRENS:
-			price = new ChildrensPrice();
+			setPrice(new ChildrensPrice());
 			break;
 		case NEW_RELEASE:
-			price = new NewReleasePrice();
+			setPrice(new NewReleasePrice());
 			break;
 		default:
 			throw new IllegalArgumentException("Incorrect Price Code");
@@ -40,10 +40,6 @@ public class Movie {
 		return title;
 	}
 
-	public double getCharge(final int daysRented) {
-		return price.getCharge(daysRented);
-	}
-
 	public int getFrequentRenterPoints(final int daysRented) {
 		// add bonus for a two day new release rental
 		if ((getPriceCode() == Movie.NEW_RELEASE)
@@ -51,5 +47,13 @@ public class Movie {
 			return 2;
 		else
 			return 1;
+	}
+
+	public void setPrice(Price price) {
+		this.price = price;
+	}
+
+	public Price getPrice() {
+		return price;
 	}
 }
