@@ -13,6 +13,10 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.thoughtworks.util.Duration;
+import com.thoughtworks.util.LocalDate;
+import com.thoughtworks.util.Period;
+
 public class CustomerTest {
 
 	private static final String RESOURCES_PATH = "src/unit/resources";
@@ -27,11 +31,11 @@ public class CustomerTest {
 	private static final Set<Rental> MIXED_RENTALS;
 	static {
 		final Set<Rental> rentals = new LinkedHashSet<Rental>();
-		rentals.add(new Rental(python, 3));
-		rentals.add(new Rental(ran, 1));
-		rentals.add(new Rental(la, 2));
-		rentals.add(new Rental(trek, 1));
-		rentals.add(new Rental(wallace, 6));
+		rentals.add(new Rental(python, Period.of(LocalDate.today(), Duration.ofDays(3))));
+		rentals.add(new Rental(ran, Period.of(LocalDate.today(), Duration.ofDays(1))));
+		rentals.add(new Rental(la, Period.of(LocalDate.today(), Duration.ofDays(2))));
+		rentals.add(new Rental(trek, Period.of(LocalDate.today(), Duration.ofDays(1))));
+		rentals.add(new Rental(wallace, Period.of(LocalDate.today(), Duration.ofDays(6))));
 		MIXED_RENTALS = Collections.unmodifiableSet(rentals);
 	}
 
@@ -44,7 +48,6 @@ public class CustomerTest {
 
 	@Test
 	public void testEmpty() throws Exception {
-		customer = new Customer("Dinsdale Pirhana");
 		equalsFile("outputEmpty", customer.statement(EMPTY_RENTALS));
 	}
 

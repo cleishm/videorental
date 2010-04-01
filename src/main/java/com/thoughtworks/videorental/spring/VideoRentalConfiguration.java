@@ -11,8 +11,10 @@ import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.repository.CustomerRepository;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
+import com.thoughtworks.videorental.domain.repository.RentalRepository;
 import com.thoughtworks.videorental.repository.SetBasedCustomerRepository;
 import com.thoughtworks.videorental.repository.SetBasedMovieRepository;
+import com.thoughtworks.videorental.repository.SetBasedRentalRepository;
 
 @Configuration
 public class VideoRentalConfiguration {
@@ -23,7 +25,7 @@ public class VideoRentalConfiguration {
 
 	@Bean(scope = "prototype")
 	public RentMoviesAction rentMoviesAction() {
-		return new RentMoviesAction(customerRepository(), movieRepository());
+		return new RentMoviesAction(customerRepository(), movieRepository(), rentalRepository());
 	}
 
 	@Bean(scope = "singleton")
@@ -42,5 +44,10 @@ public class VideoRentalConfiguration {
 		final Customer customer3 = new Customer("Benjamin Harrison");
 		return new SetBasedCustomerRepository(Arrays.asList(customer1,
 				customer2, customer3));
+	}
+	
+	@Bean(scope = "singleton")
+	public RentalRepository rentalRepository() {
+		return new SetBasedRentalRepository();
 	}
 }

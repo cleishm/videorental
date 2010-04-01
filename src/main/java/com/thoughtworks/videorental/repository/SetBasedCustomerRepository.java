@@ -13,8 +13,8 @@ import com.thoughtworks.videorental.domain.repository.CustomerRepository;
 public class SetBasedCustomerRepository extends SetBasedRepository<Customer> implements
 		CustomerRepository {
 
-	public SetBasedCustomerRepository(final Collection<Customer> customers) {
-		super(customers);
+	public SetBasedCustomerRepository(final Collection<Customer> entities) {
+		super(entities);
 	}
 	
 	@Override

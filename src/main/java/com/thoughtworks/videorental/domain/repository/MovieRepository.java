@@ -1,5 +1,6 @@
 package com.thoughtworks.videorental.domain.repository;
 
+import java.util.Collection;
 import java.util.Set;
 
 import com.thoughtworks.repository.NonUniqueObjectSelectedException;
@@ -9,8 +10,10 @@ import com.thoughtworks.specification.Specification;
 import com.thoughtworks.videorental.domain.Movie;
 
 public interface MovieRepository {
-	void add(Movie movie) throws NullObjectAddedException;
+	void add(Movie entity) throws NullObjectAddedException;
 
+	void add(Collection<Movie> entities) throws NullObjectAddedException;
+	
 	Set<Movie> selectAll();
 	
 	Set<Movie> selectAll(OrderComparator<Movie> comparator);

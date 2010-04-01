@@ -1,16 +1,18 @@
 package com.thoughtworks.videorental.domain;
 
+import com.thoughtworks.util.Period;
+
 public class Rental {
 	private Movie movie;
-	private int daysRented;
+	private Period period;
 
-	public Rental(Movie movie, int daysRented) {
+	public Rental(Movie movie, Period period) {
 		this.movie = movie;
-		this.daysRented = daysRented;
+		this.period = period;
 	}
 
-	public int getDaysRented() {
-		return daysRented;
+	public Period getPeriod() {
+		return period;
 	}
 
 	public Movie getMovie() {

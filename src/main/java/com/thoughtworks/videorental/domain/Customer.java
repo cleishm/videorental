@@ -20,12 +20,14 @@ public class Customer {
 		double totalAmount = 0;
 		for (Rental rental : newRentals) {
 			// show figures for this rental
+			final Integer rentalDays = rental.getPeriod().getDuration().getDays();
+			
 			result += "  " + rental.getMovie().getTitle() + "  -  $"
-					+ String.valueOf(rental.getMovie().getPrice().getCharge(rental.getDaysRented())) + "\n";
+					+ String.valueOf(rental.getMovie().getPrice().getCharge(rentalDays)) + "\n";
 			
-			totalAmount += rental.getMovie().getPrice().getCharge(rental.getDaysRented());
+			totalAmount += rental.getMovie().getPrice().getCharge(rentalDays);
 			
-			frequentRenterPoints += rental.getMovie().getPrice().getFrequentRenterPoints(rental.getDaysRented());
+			frequentRenterPoints += rental.getMovie().getPrice().getFrequentRenterPoints(rentalDays);
 		}
 
 		// add footer lines
