@@ -1,31 +1,26 @@
 package com.thoughtworks.videorental.domain;
 
-import java.util.ArrayList;
+import java.util.Set;
 
 public class Customer {
 	private String name;
-	private ArrayList<Rental> rentalList = new ArrayList<Rental>();
+	private int frequentRenterPoints = 0;
 
 	public Customer(String name) {
 		this.name = name;
-	}
-
-	public void addRental(Rental arg) {
-		rentalList.add(arg);
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public String statement() {
+	public String statement(final Set<Rental> newRentals) {
 		String result = "Rental Record for " + getName() + "\n";
 
 		double totalAmount = 0;
-		int frequentRenterPoints = 0;
-		for (Rental rental : rentalList) {
+		for (Rental rental : newRentals) {
 			// show figures for this rental
-			result += "\t" + rental.getMovie().getTitle() + "\t"
+			result += "  " + rental.getMovie().getTitle() + "  -  $"
 					+ String.valueOf(rental.getMovie().getPrice().getCharge(rental.getDaysRented())) + "\n";
 			
 			totalAmount += rental.getMovie().getPrice().getCharge(rental.getDaysRented());
@@ -34,8 +29,8 @@ public class Customer {
 		}
 
 		// add footer lines
-		result += "Amount owed is " + String.valueOf(totalAmount) + "\n";
-		result += "You earned " + String.valueOf(frequentRenterPoints)
+		result += "Amount charged is $" + String.valueOf(totalAmount) + "\n";
+		result += "You have a new total of " + String.valueOf(frequentRenterPoints)
 				+ " frequent renter points";
 		return result;
 	}

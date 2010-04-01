@@ -1,5 +1,6 @@
 package com.thoughtworks.videorental.action;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -47,11 +48,12 @@ public class RentMoviesAction extends ActionSupport {
 		final Customer customer = customerRepository.selectUnique(new CustomerWithNameSpecification(customerName));
 		final Set<Movie> movies = movieRepository.selectSatisfying(new MovieWithNameSpecification(movieNames));
 		
+		final Set<Rental> rentals = new HashSet<Rental>();
 		for (final Movie movie : movies) {
-			customer.addRental(new Rental(movie, rentalDuration));
+			rentals.add(new Rental(movie, rentalDuration));
 		}
 		
-		receipt = customer.statement();
+		receipt = customer.statement(rentals);
 		return SUCCESS;
 	}
 }
