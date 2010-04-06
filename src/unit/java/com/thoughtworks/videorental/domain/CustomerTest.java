@@ -21,6 +21,7 @@ public class CustomerTest {
 
 	private static final String RESOURCES_PATH = "src/unit/resources";
 
+	private static final Customer CUSTOMER = new Customer("John Smith");
 	private static final Movie python = new Movie(
 			"Monty Python and the Holy Grail", Movie.REGULAR);
 	private static final Movie ran = new Movie("Ran", Movie.REGULAR);
@@ -29,13 +30,14 @@ public class CustomerTest {
 	private static final Movie wallace = new Movie("Wallace and Gromit", Movie.CHILDRENS);
 	private static final Set<Rental> EMPTY_RENTALS = Collections.emptySet();
 	private static final Set<Rental> MIXED_RENTALS;
+
 	static {
 		final Set<Rental> rentals = new LinkedHashSet<Rental>();
-		rentals.add(new Rental(python, Period.of(LocalDate.today(), Duration.ofDays(3))));
-		rentals.add(new Rental(ran, Period.of(LocalDate.today(), Duration.ofDays(1))));
-		rentals.add(new Rental(la, Period.of(LocalDate.today(), Duration.ofDays(2))));
-		rentals.add(new Rental(trek, Period.of(LocalDate.today(), Duration.ofDays(1))));
-		rentals.add(new Rental(wallace, Period.of(LocalDate.today(), Duration.ofDays(6))));
+		rentals.add(new Rental(CUSTOMER, python, Period.of(LocalDate.today(), Duration.ofDays(3))));
+		rentals.add(new Rental(CUSTOMER, ran, Period.of(LocalDate.today(), Duration.ofDays(1))));
+		rentals.add(new Rental(CUSTOMER, la, Period.of(LocalDate.today(), Duration.ofDays(2))));
+		rentals.add(new Rental(CUSTOMER, trek, Period.of(LocalDate.today(), Duration.ofDays(1))));
+		rentals.add(new Rental(CUSTOMER, wallace, Period.of(LocalDate.today(), Duration.ofDays(6))));
 		MIXED_RENTALS = Collections.unmodifiableSet(rentals);
 	}
 

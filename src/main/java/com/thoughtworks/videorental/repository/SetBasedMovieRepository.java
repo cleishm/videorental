@@ -13,10 +13,14 @@ import com.thoughtworks.videorental.domain.repository.MovieRepository;
 public class SetBasedMovieRepository extends SetBasedRepository<Movie>
 		implements MovieRepository {
 
+	public SetBasedMovieRepository() {
+		super();
+	}
+	
 	public SetBasedMovieRepository(final Collection<Movie> entities) {
 		super(entities);
 	}
-	
+
 	@Override
 	public Set<Movie> selectAll(OrderComparator<Movie> comparator) {
 		return selectAll((Comparator<Movie>) comparator);

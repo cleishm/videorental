@@ -61,5 +61,6 @@
 	<classpathentry kind="lib" path="lib/runtime/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/ejb3-persistence.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/joda-time-1.6.jar"/>
+	<classpathentry kind="lib" path="lib/tools/hamcrest-all-1.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

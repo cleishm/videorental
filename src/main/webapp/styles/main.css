@@ -1,3 +1,22 @@
-#body { margin: 0 }
-#header { background-color: #ccccff; padding: 0; text-align: center }
-#header h2 { padding: 0; margin: 0 }
+#body {
+	margin: 0;
+}
+#header {
+	background-color: #ccccff;
+	padding: 0;
+	text-align: center;
+	height: 2em;
+}
+#header h2 {
+	padding: 0;
+	margin: 0;
+	display: inline;
+}
+#header .tab {
+	background-color: #aaaaff;
+	float: right;
+	margin: 0 1em 0 1em;
+	padding: 0 10px 0 10px;
+	height: 100%;
+	color: #ffffff;
+}

@@ -10,33 +10,30 @@ import com.thoughtworks.util.Period;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.Rental;
-import com.thoughtworks.videorental.domain.repository.CustomerRepository;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
 import com.thoughtworks.videorental.domain.repository.RentalRepository;
-import com.thoughtworks.videorental.domain.specification.CustomerWithNameSpecification;
-import com.thoughtworks.videorental.domain.specification.MovieWithNameSpecification;
+import com.thoughtworks.videorental.domain.specification.MovieWithTitleSpecification;
+import com.thoughtworks.videorental.interceptor.CustomerAware;
 
-public class RentMoviesAction extends ActionSupport {
+public class RentMoviesAction extends ActionSupport implements CustomerAware {
 
-	private final CustomerRepository customerRepository;
 	private final MovieRepository movieRepository;
 	private final RentalRepository rentalRepository;
 
-	private String customerName;
+	private Customer customer;
 	private String receipt;
 	private String[] movieNames;
 	private int rentalDuration;
 
-	public RentMoviesAction(final CustomerRepository customerRepository,
-			final MovieRepository movieRepository,
+	public RentMoviesAction(final MovieRepository movieRepository,
 			final RentalRepository rentalRepository) {
-		this.customerRepository = customerRepository;
 		this.movieRepository = movieRepository;
 		this.rentalRepository = rentalRepository;
 	}
-
-	public void setCustomerName(final String customerName) {
-		this.customerName = customerName;
+	
+	@Override
+	public void setCustomer(final Customer customer) {
+		this.customer = customer;
 	}
 
 	public void setMovieNames(final String[] movieNames) {
@@ -53,13 +50,12 @@ public class RentMoviesAction extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		final Customer customer = customerRepository.selectUnique(new CustomerWithNameSpecification(customerName));
-		final Set<Movie> movies = movieRepository.selectSatisfying(new MovieWithNameSpecification(movieNames));
+		final Set<Movie> movies = movieRepository.selectSatisfying(new MovieWithTitleSpecification(movieNames));
 
 		final Set<Rental> rentals = new LinkedHashSet<Rental>();
 		for (final Movie movie : movies) {
 			final Period rentalPeriod = Period.of(LocalDate.today(), Duration.ofDays(rentalDuration));
-			final Rental rental = new Rental(movie, rentalPeriod);
+			final Rental rental = new Rental(customer, movie, rentalPeriod);
 			rentals.add(rental);
 		}
 		
@@ -67,4 +63,5 @@ public class RentMoviesAction extends ActionSupport {
 		receipt = customer.statement(rentals);
 		return SUCCESS;
 	}
+
 }

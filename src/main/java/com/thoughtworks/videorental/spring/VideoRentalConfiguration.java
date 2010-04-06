@@ -5,13 +5,17 @@ import java.util.Arrays;
 import org.springframework.config.java.annotation.Bean;
 import org.springframework.config.java.annotation.Configuration;
 
+import com.thoughtworks.videorental.action.LogoutAction;
 import com.thoughtworks.videorental.action.RentMoviesAction;
 import com.thoughtworks.videorental.action.ViewHomeAction;
+import com.thoughtworks.videorental.action.LoginAction;
+import com.thoughtworks.videorental.action.ViewRentedMoviesAction;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.repository.CustomerRepository;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
 import com.thoughtworks.videorental.domain.repository.RentalRepository;
+import com.thoughtworks.videorental.interceptor.CustomerLoginInterceptor;
 import com.thoughtworks.videorental.repository.SetBasedCustomerRepository;
 import com.thoughtworks.videorental.repository.SetBasedMovieRepository;
 import com.thoughtworks.videorental.repository.SetBasedRentalRepository;
@@ -19,13 +23,28 @@ import com.thoughtworks.videorental.repository.SetBasedRentalRepository;
 @Configuration
 public class VideoRentalConfiguration {
 	@Bean(scope = "prototype")
+	public LoginAction loginAction() {
+		return new LoginAction(customerRepository());
+	}
+
+	@Bean(scope = "prototype")
+	public LogoutAction logoutAction() {
+		return new LogoutAction();
+	}
+	
+	@Bean(scope = "prototype")
 	public ViewHomeAction viewHomeAction() {
-		return new ViewHomeAction(customerRepository(), movieRepository());
+		return new ViewHomeAction(movieRepository());
 	}
 
 	@Bean(scope = "prototype")
 	public RentMoviesAction rentMoviesAction() {
-		return new RentMoviesAction(customerRepository(), movieRepository(), rentalRepository());
+		return new RentMoviesAction(movieRepository(), rentalRepository());
+	}
+
+	@Bean(scope = "prototype")
+	public ViewRentedMoviesAction viewRentedMoviesAction() {
+		return new ViewRentedMoviesAction(rentalRepository());
 	}
 
 	@Bean(scope = "singleton")
@@ -49,5 +68,10 @@ public class VideoRentalConfiguration {
 	@Bean(scope = "singleton")
 	public RentalRepository rentalRepository() {
 		return new SetBasedRentalRepository();
+	}
+	
+	@Bean(scope = "singleton")
+	public CustomerLoginInterceptor customerLoginInterceptor() {
+		return new CustomerLoginInterceptor();
 	}
 }

@@ -39,10 +39,6 @@
 			<li><a href="#wizard-2"><h2>How long for?</h2>
 				<small>Tell us how many days you want to rent for</small>
 			</a></li>
-			<li><a href="#wizard-3">
-				<h2>Who are you?</h2>
-				<small>Pick your name from our customer list</small>
-			</a></li>
 		</ul>
 		<div class="wiz-body">
 			<div id="wizard-1">
@@ -74,18 +70,6 @@
 				</div>
 				<div class="wiz-nav">
 					<input class="back btn" type="button" value="< Prev" />
-					<input class="next btn" type="button" value="Next >" />
-				</div>
-			</div>
-			<div id="wizard-3">
-				<div class="wiz-content customerlist">
-	    			<select class="customer" name="customerName">
-				    	<#list customers as customer>
-				    	<option value="${customer.name}">${customer.name}</option>
-				    	</#list>
-	    			</select>
-				</div>
-				<div class="wiz-nav">
 					<input class="done btn" type="submit" value="Done" />
 				</div>
 			</div>

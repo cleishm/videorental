@@ -9,17 +9,17 @@ import org.hibernate.Criteria;
 import com.thoughtworks.specification.Specification;
 import com.thoughtworks.videorental.domain.Movie;
 
-public class MovieWithNameSpecification implements Specification<Movie> {
+public class MovieWithTitleSpecification implements Specification<Movie> {
 
-	private Collection<String> movieNames;
+	private Collection<String> movieTitles;
 
-	public MovieWithNameSpecification(final String[] movieNames) {
-		this.movieNames = new HashSet<String>(Arrays.asList(movieNames));
+	public MovieWithTitleSpecification(final String... movieTitles) {
+		this.movieTitles = new HashSet<String>(Arrays.asList(movieTitles));
 	}
 
 	@Override
 	public boolean isSatisfiedBy(final Movie movie) {
-		return movieNames.contains(movie.getTitle());
+		return movieTitles.contains(movie.getTitle());
 	}
 
 	@Override

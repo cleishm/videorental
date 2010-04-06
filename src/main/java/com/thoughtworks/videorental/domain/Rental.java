@@ -3,19 +3,25 @@ package com.thoughtworks.videorental.domain;
 import com.thoughtworks.util.Period;
 
 public class Rental {
-	private Movie movie;
-	private Period period;
+	private final Movie movie;
+	private final Customer customer;
+	private final Period period;
 
-	public Rental(Movie movie, Period period) {
+	public Rental(Customer customer, Movie movie, Period period) {
 		this.movie = movie;
+		this.customer = customer;
 		this.period = period;
+	}
+	
+	public Movie getMovie() {
+		return movie;
+	}
+	
+	public Customer getCustomer() {
+		return customer;
 	}
 
 	public Period getPeriod() {
 		return period;
-	}
-
-	public Movie getMovie() {
-		return movie;
 	}
 }
