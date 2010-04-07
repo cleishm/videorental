@@ -5,10 +5,10 @@ import java.util.Arrays;
 import org.springframework.config.java.annotation.Bean;
 import org.springframework.config.java.annotation.Configuration;
 
+import com.thoughtworks.videorental.action.LoginAction;
 import com.thoughtworks.videorental.action.LogoutAction;
 import com.thoughtworks.videorental.action.RentMoviesAction;
 import com.thoughtworks.videorental.action.ViewHomeAction;
-import com.thoughtworks.videorental.action.LoginAction;
 import com.thoughtworks.videorental.action.ViewRentedMoviesAction;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;

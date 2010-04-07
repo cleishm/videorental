@@ -4,9 +4,9 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.opensymphony.xwork2.ActionSupport;
-import com.thoughtworks.util.Duration;
-import com.thoughtworks.util.LocalDate;
-import com.thoughtworks.util.Period;
+import com.thoughtworks.datetime.Duration;
+import com.thoughtworks.datetime.LocalDate;
+import com.thoughtworks.datetime.Period;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.Rental;

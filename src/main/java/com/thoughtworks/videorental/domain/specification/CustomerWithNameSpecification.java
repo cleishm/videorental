@@ -2,7 +2,7 @@ package com.thoughtworks.videorental.domain.specification;
 
 import org.hibernate.Criteria;
 
-import com.thoughtworks.specification.Specification;
+import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Customer;
 
 public class CustomerWithNameSpecification implements Specification<Customer> {

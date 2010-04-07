@@ -6,7 +6,7 @@ import java.util.HashSet;
 
 import org.hibernate.Criteria;
 
-import com.thoughtworks.specification.Specification;
+import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Movie;
 
 public class MovieWithTitleSpecification implements Specification<Movie> {

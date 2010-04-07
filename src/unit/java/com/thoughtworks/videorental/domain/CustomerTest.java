@@ -13,9 +13,9 @@ import java.util.Set;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.thoughtworks.util.Duration;
-import com.thoughtworks.util.LocalDate;
-import com.thoughtworks.util.Period;
+import com.thoughtworks.datetime.Duration;
+import com.thoughtworks.datetime.LocalDate;
+import com.thoughtworks.datetime.Period;
 
 public class CustomerTest {
 

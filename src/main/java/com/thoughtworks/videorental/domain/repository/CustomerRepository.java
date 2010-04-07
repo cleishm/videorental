@@ -3,10 +3,10 @@ package com.thoughtworks.videorental.domain.repository;
 import java.util.Collection;
 import java.util.Set;
 
-import com.thoughtworks.repository.NonUniqueObjectSelectedException;
-import com.thoughtworks.repository.NullObjectAddedException;
-import com.thoughtworks.specification.OrderComparator;
-import com.thoughtworks.specification.Specification;
+import com.thoughtworks.ddd.repository.NonUniqueObjectSelectedException;
+import com.thoughtworks.ddd.repository.NullObjectAddedException;
+import com.thoughtworks.ddd.specification.OrderComparator;
+import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Customer;
 
 public interface CustomerRepository {

@@ -15,10 +15,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.thoughtworks.util.Duration;
-import com.thoughtworks.util.LocalDate;
-import com.thoughtworks.util.LocalDateTime;
-import com.thoughtworks.util.Period;
+import com.thoughtworks.datetime.Duration;
+import com.thoughtworks.datetime.LocalDate;
+import com.thoughtworks.datetime.LocalDateTime;
+import com.thoughtworks.datetime.Period;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.Rental;

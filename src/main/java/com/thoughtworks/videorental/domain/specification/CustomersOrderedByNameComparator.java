@@ -2,7 +2,7 @@ package com.thoughtworks.videorental.domain.specification;
 
 import org.hibernate.Criteria;
 
-import com.thoughtworks.specification.OrderComparator;
+import com.thoughtworks.ddd.specification.OrderComparator;
 import com.thoughtworks.videorental.domain.Customer;
 
 public class CustomersOrderedByNameComparator implements OrderComparator<Customer> {

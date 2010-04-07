@@ -1,6 +1,6 @@
 package com.thoughtworks.videorental.domain;
 
-import com.thoughtworks.util.Period;
+import com.thoughtworks.datetime.Period;
 
 public class Rental {
 	private final Movie movie;

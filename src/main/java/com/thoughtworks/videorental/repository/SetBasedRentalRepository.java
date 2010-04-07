@@ -3,9 +3,9 @@ package com.thoughtworks.videorental.repository;
 import java.util.Comparator;
 import java.util.Set;
 
-import com.thoughtworks.repository.SetBasedRepository;
-import com.thoughtworks.specification.OrderComparator;
-import com.thoughtworks.specification.Specification;
+import com.thoughtworks.ddd.repository.SetBasedRepository;
+import com.thoughtworks.ddd.specification.OrderComparator;
+import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Rental;
 import com.thoughtworks.videorental.domain.repository.RentalRepository;
 
