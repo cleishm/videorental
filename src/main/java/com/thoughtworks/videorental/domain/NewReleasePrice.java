@@ -3,7 +3,7 @@ package com.thoughtworks.videorental.domain;
 public class NewReleasePrice implements Price {
 
 	public double getCharge(final int daysRented) {
-		return daysRented * 3;
+		return ((int)(daysRented / 7) * 6 + (daysRented % 7)) * 3;
 	}
 
 	public int getFrequentRenterPoints(final int daysRented) {
