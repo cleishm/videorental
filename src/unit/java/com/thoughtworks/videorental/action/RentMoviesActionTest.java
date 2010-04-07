@@ -2,7 +2,6 @@ package com.thoughtworks.videorental.action;
 
 import static junit.framework.Assert.*;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.collection.IsCollectionWithSize.*;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
