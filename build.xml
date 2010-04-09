@@ -58,8 +58,8 @@
     <fileset id="tools.libraries" dir="${lib.dir}/tools" includes="*.jar"/>
 
     <path id="main.build.classpath">
-    	<fileset refid="runtime.libraries"/>
-    	<fileset refid="build.libraries"/>
+        <fileset refid="runtime.libraries"/>
+        <fileset refid="build.libraries"/>
     </path>
 
     <path id="util.build.classpath">
@@ -73,9 +73,9 @@
     </path>
 
     <path id="unit.build.classpath">
-    	<pathelement location="${main.jar}"/>
+        <pathelement location="${main.jar}"/>
         <path refid="main.build.classpath"/>
-    	<fileset refid="runtime.libraries"/>
+        <fileset refid="runtime.libraries"/>
         <fileset refid="build.libraries"/>
         <fileset refid="tools.libraries"/>
     </path>
@@ -164,7 +164,7 @@
 
     <macrodef name="jettyStartServer">
         <attribute name="war"/>
-    	<sequential>
+        <sequential>
             <echo message="starting jetty"/>
             <java classname="com.thoughtworks.jetty.JettyLauncher"
                     classpathref="acceptance.runtime.classpath" fork="true">
@@ -173,17 +173,17 @@
                 <arg value="${jetty.stop.port}"/>
                 <arg value="@{war}"/>
             </java>
-    	</sequential>
+        </sequential>
     </macrodef>
 
     <macrodef name="jettyStopServer">
-    	<sequential>
+        <sequential>
             <java classname="com.thoughtworks.JettyLauncher"
                     classpathref="acceptance.class.path" fork="true">
                 <arg value="-stop"/>
                 <arg value="${jetty.stop.port}"/>
             </java>
-    	</sequential>
+        </sequential>
     </macrodef>
 
     <!-- Targets -->
@@ -223,14 +223,14 @@
             <manifest>
                 <attribute name="Label" value="${build.label}"/>
             </manifest>
-	    <lib refid="runtime.libraries"/>
+        <lib refid="runtime.libraries"/>
             <lib file="${main.jar}"/>
-	    <classes dir="${main.resources.dir}"/>
+        <classes dir="${main.resources.dir}"/>
         </war>
     </target>
 
     <target name="unit-test" depends="unit-jar" description="Run unit tests">
-    	<testAndReport type="unit" srcdir="${unit.src.dir}"
+        <testAndReport type="unit" srcdir="${unit.src.dir}"
                 classpathref="unit.runtime.classpath"/>
     </target>
 
