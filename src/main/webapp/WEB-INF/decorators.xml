@@ -18,6 +18,10 @@
         <pattern>/nodecorate/*</pattern>
     </excludes>
 
+    <decorator name="login" page="login.dec">
+        <pattern>/login</pattern>
+    </decorator>
+    
     <decorator name="main" page="main.dec">
         <pattern>/*</pattern>
     </decorator>
