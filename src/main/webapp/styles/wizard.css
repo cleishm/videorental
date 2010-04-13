@@ -4,13 +4,6 @@ Author : http://tech-laboratory.blogspot.com
 Version: 0.98 
 - - - - - - - - - - - - - - - - - - - - - */
 
-  body {font : normal 12px Verdana, Arial, Helvetica, sans-serif;
-      *font-size:small;
-      **font:x-small;
-      color:#0464BB; 
-      margin:0;
-      padding:0;      }
-
  .wiz-container{
       margin:0;padding:0;
       width:920px;
