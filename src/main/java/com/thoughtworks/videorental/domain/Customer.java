@@ -13,6 +13,10 @@ public class Customer {
 	public String getName() {
 		return name;
 	}
+	
+	public int getFrequentRenterPoints() {
+		return frequentRenterPoints;
+	}
 
 	public String statement(final Set<Rental> newRentals) {
 		String result = "Rental Record for " + getName() + "\n";
