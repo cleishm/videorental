@@ -34,12 +34,16 @@
 			<result name="success" type="redirect">/</result>
 		</action>
 		
-		<action name="rentMovies" class="rentMoviesAction">
-			<result type="freemarker">statement.ftl</result>
+		<action name="history" class="viewHistoryAction">
+			<result type="freemarker">history.ftl</result>
 		</action>
-		
+				
 		<action name="rentals" class="viewRentedMoviesAction">
 			<result type="freemarker">rentals.ftl</result>
+		</action>
+		
+		<action name="rentMovies" class="rentMoviesAction">
+			<result type="freemarker">statement.ftl</result>
 		</action>
 	</package>
 </struts>

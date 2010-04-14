@@ -7,6 +7,7 @@ import com.thoughtworks.ddd.repository.NonUniqueObjectSelectedException;
 import com.thoughtworks.ddd.repository.NullObjectAddedException;
 import com.thoughtworks.ddd.specification.OrderComparator;
 import com.thoughtworks.ddd.specification.Specification;
+import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Transaction;
 
 public interface TransactionRepository {
@@ -23,4 +24,6 @@ public interface TransactionRepository {
 	Set<Transaction> selectSatisfying(Specification<Transaction> specification, OrderComparator<Transaction> comparator);
 
 	Transaction selectUnique(Specification<Transaction> specification) throws NonUniqueObjectSelectedException;
+
+	Collection<Transaction> transactionsBy(Customer customer);
 }
