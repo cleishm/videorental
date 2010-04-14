@@ -20,7 +20,7 @@ public class RentMoviesAction extends ActionSupport implements CustomerAware {
 	private final RentalRepository rentalRepository;
 
 	private Customer customer;
-	private String receipt;
+	private String statement;
 	private String[] movieNames;
 	private int rentalDuration;
 
@@ -43,8 +43,8 @@ public class RentMoviesAction extends ActionSupport implements CustomerAware {
 		this.rentalDuration = rentalDuration;
 	}
 
-	public String getReceipt() {
-		return receipt;
+	public String getStatement() {
+		return statement;
 	}
 
 	@Override
@@ -59,7 +59,7 @@ public class RentMoviesAction extends ActionSupport implements CustomerAware {
 		}
 		
 		rentalRepository.add(rentals);
-		receipt = customer.statement(rentals);
+		statement = customer.statement(rentals);
 		return SUCCESS;
 	}
 

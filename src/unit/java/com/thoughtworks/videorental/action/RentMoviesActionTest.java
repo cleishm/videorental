@@ -73,11 +73,11 @@ public class RentMoviesActionTest {
 		final int days = 1;
 		rentMoviesAction.setRentalDuration(days);
 		
-		final String receipt = "my receipt";
-		when(customer.statement(argThat(isRentalsForDurationAndOf(1, THE_GODFATHER, PULP_FICTION)))).thenReturn(receipt);
+		final String statement = "my statement";
+		when(customer.statement(argThat(isRentalsForDurationAndOf(1, THE_GODFATHER, PULP_FICTION)))).thenReturn(statement);
 		rentMoviesAction.execute();
 		
-		assertEquals(receipt, rentMoviesAction.getReceipt());
+		assertEquals(statement, rentMoviesAction.getStatement());
 	}
 
 	@SuppressWarnings("unchecked")

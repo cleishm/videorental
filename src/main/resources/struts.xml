@@ -35,7 +35,7 @@
 		</action>
 		
 		<action name="rentMovies" class="rentMoviesAction">
-			<result type="freemarker">receipt.ftl</result>
+			<result type="freemarker">statement.ftl</result>
 		</action>
 		
 		<action name="rentals" class="viewRentedMoviesAction">
