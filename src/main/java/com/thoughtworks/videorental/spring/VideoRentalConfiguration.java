@@ -15,10 +15,12 @@ import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.repository.CustomerRepository;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
 import com.thoughtworks.videorental.domain.repository.RentalRepository;
+import com.thoughtworks.videorental.domain.repository.TransactionRepository;
 import com.thoughtworks.videorental.interceptor.CustomerLoginInterceptor;
 import com.thoughtworks.videorental.repository.SetBasedCustomerRepository;
 import com.thoughtworks.videorental.repository.SetBasedMovieRepository;
 import com.thoughtworks.videorental.repository.SetBasedRentalRepository;
+import com.thoughtworks.videorental.repository.SetBasedTransactionRepository;
 
 @Configuration
 public class VideoRentalConfiguration {
@@ -31,7 +33,7 @@ public class VideoRentalConfiguration {
 	public LogoutAction logoutAction() {
 		return new LogoutAction();
 	}
-	
+
 	@Bean(scope = "prototype")
 	public ViewHomeAction viewHomeAction() {
 		return new ViewHomeAction(movieRepository());
@@ -39,7 +41,7 @@ public class VideoRentalConfiguration {
 
 	@Bean(scope = "prototype")
 	public RentMoviesAction rentMoviesAction() {
-		return new RentMoviesAction(movieRepository(), rentalRepository());
+		return new RentMoviesAction(movieRepository(), rentalRepository(), transactionRepository());
 	}
 
 	@Bean(scope = "prototype")
@@ -52,8 +54,7 @@ public class VideoRentalConfiguration {
 		final Movie avatar = new Movie("Avatar", Movie.NEW_RELEASE);
 		final Movie upInTheAir = new Movie("Up In The Air", Movie.REGULAR);
 		final Movie findingNemo = new Movie("Finding Nemo", Movie.CHILDRENS);
-		return new SetBasedMovieRepository(Arrays.asList(avatar, upInTheAir,
-				findingNemo));
+		return new SetBasedMovieRepository(Arrays.asList(avatar, upInTheAir, findingNemo));
 	}
 
 	@Bean(scope = "singleton")
@@ -61,15 +62,19 @@ public class VideoRentalConfiguration {
 		final Customer customer1 = new Customer("James Madison");
 		final Customer customer2 = new Customer("Zackery Taylor");
 		final Customer customer3 = new Customer("Benjamin Harrison");
-		return new SetBasedCustomerRepository(Arrays.asList(customer1,
-				customer2, customer3));
+		return new SetBasedCustomerRepository(Arrays.asList(customer1, customer2, customer3));
 	}
-	
+
 	@Bean(scope = "singleton")
 	public RentalRepository rentalRepository() {
 		return new SetBasedRentalRepository();
 	}
-	
+
+	@Bean(scope = "singleton")
+	public TransactionRepository transactionRepository() {
+		return new SetBasedTransactionRepository();
+	}
+
 	@Bean(scope = "singleton")
 	public CustomerLoginInterceptor customerLoginInterceptor() {
 		return new CustomerLoginInterceptor();
