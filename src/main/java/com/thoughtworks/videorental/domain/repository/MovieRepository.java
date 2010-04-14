@@ -25,4 +25,6 @@ public interface MovieRepository {
 
 	Movie selectUnique(Specification<Movie> specification)
 			throws NonUniqueObjectSelectedException;
+	
+	Set<Movie> withTitles(String... titles);
 }

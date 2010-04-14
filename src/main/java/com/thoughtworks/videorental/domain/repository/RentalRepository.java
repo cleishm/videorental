@@ -7,6 +7,7 @@ import com.thoughtworks.ddd.repository.NonUniqueObjectSelectedException;
 import com.thoughtworks.ddd.repository.NullObjectAddedException;
 import com.thoughtworks.ddd.specification.OrderComparator;
 import com.thoughtworks.ddd.specification.Specification;
+import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Rental;
 
 public interface RentalRepository {
@@ -25,4 +26,6 @@ public interface RentalRepository {
 
 	Rental selectUnique(Specification<Rental> specification)
 			throws NonUniqueObjectSelectedException;
+	
+	Set<Rental> currentRentalsFor(Customer customer);
 }

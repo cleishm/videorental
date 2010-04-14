@@ -12,7 +12,6 @@ import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.Rental;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
 import com.thoughtworks.videorental.domain.repository.RentalRepository;
-import com.thoughtworks.videorental.domain.specification.MovieWithTitleSpecification;
 import com.thoughtworks.videorental.interceptor.CustomerAware;
 
 public class RentMoviesAction extends ActionSupport implements CustomerAware {
@@ -50,7 +49,7 @@ public class RentMoviesAction extends ActionSupport implements CustomerAware {
 
 	@Override
 	public String execute() throws Exception {
-		final Set<Movie> movies = movieRepository.selectSatisfying(new MovieWithTitleSpecification(movieNames));
+		final Set<Movie> movies = movieRepository.withTitles(movieNames);
 
 		final Set<Rental> rentals = new LinkedHashSet<Rental>();
 		for (final Movie movie : movies) {

@@ -9,6 +9,7 @@ import com.thoughtworks.ddd.specification.OrderComparator;
 import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
+import com.thoughtworks.videorental.domain.specification.MovieWithTitleSpecification;
 
 public class SetBasedMovieRepository extends SetBasedRepository<Movie>
 		implements MovieRepository {
@@ -31,5 +32,10 @@ public class SetBasedMovieRepository extends SetBasedRepository<Movie>
 			final Specification<Movie> specification,
 			final OrderComparator<Movie> comparator) {
 		return selectSatisfying(specification, (Comparator<Movie>) comparator);
+	}
+
+	@Override
+	public Set<Movie> withTitles(final String... titles) {
+		return selectSatisfying(new MovieWithTitleSpecification(titles));
 	}
 }
