@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.thoughtworks.datetime.Duration;
 import com.thoughtworks.datetime.LocalDate;
+import com.thoughtworks.datetime.LocalDateTime;
 import com.thoughtworks.datetime.Period;
 
 public class TransactionTest {
@@ -28,7 +29,7 @@ public class TransactionTest {
 	public void shouldReturnDifferentRentalSetFromConstruction() {
 		final Set<Rental> rentals = new HashSet<Rental>();
 		rentals.add(RENTAL_ONE);
-		final Transaction transaction = new Transaction(CUSTOMER_ONE, rentals);
+		final Transaction transaction = new Transaction(LocalDateTime.now(), CUSTOMER_ONE, rentals);
 
 		rentals.add(RENTAL_TWO);
 		
@@ -38,12 +39,12 @@ public class TransactionTest {
 
 	@Test(expected = UnsupportedOperationException.class)
 	public void shouldReturnUnmodifiableRentalSet() {
-		final Transaction transaction = new Transaction(CUSTOMER_ONE, Collections.singleton(RENTAL_ONE));
+		final Transaction transaction = new Transaction(LocalDateTime.now(), CUSTOMER_ONE, Collections.singleton(RENTAL_ONE));
 		transaction.getRentals().clear();
 	}
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void shouldThrowExceptionIfRentalForDifferentCustomer() {
-		new Transaction(CUSTOMER_TWO, Collections.singleton(RENTAL_ONE));
+		new Transaction(LocalDateTime.now(), CUSTOMER_TWO, Collections.singleton(RENTAL_ONE));
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 import com.opensymphony.xwork2.ActionSupport;
 import com.thoughtworks.datetime.Duration;
 import com.thoughtworks.datetime.LocalDate;
+import com.thoughtworks.datetime.LocalDateTime;
 import com.thoughtworks.datetime.Period;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
@@ -63,7 +64,7 @@ public class RentMoviesAction extends ActionSupport implements CustomerAware {
 		}
 
 		rentalRepository.add(rentals);
-		final Transaction transaction = new Transaction(customer, rentals);
+		final Transaction transaction = new Transaction(LocalDateTime.now(), customer, rentals);
 		transactionRepository.add(transaction);
 
 		statement = customer.statement(transaction.getRentals());
