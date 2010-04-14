@@ -12,11 +12,11 @@ public class Rental {
 		this.customer = customer;
 		this.period = period;
 	}
-	
+
 	public Movie getMovie() {
 		return movie;
 	}
-	
+
 	public Customer getCustomer() {
 		return customer;
 	}

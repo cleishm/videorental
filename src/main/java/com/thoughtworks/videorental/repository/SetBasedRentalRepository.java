@@ -13,8 +13,7 @@ import com.thoughtworks.videorental.domain.repository.RentalRepository;
 import com.thoughtworks.videorental.domain.specification.CurrentRentalSpecification;
 import com.thoughtworks.videorental.domain.specification.RentalForCustomerSpecification;
 
-public class SetBasedRentalRepository extends SetBasedRepository<Rental>
-		implements RentalRepository {
+public class SetBasedRentalRepository extends SetBasedRepository<Rental> implements RentalRepository {
 
 	public SetBasedRentalRepository() {
 		super();
@@ -26,8 +25,7 @@ public class SetBasedRentalRepository extends SetBasedRepository<Rental>
 	}
 
 	@Override
-	public Set<Rental> selectSatisfying(
-			final Specification<Rental> specification,
+	public Set<Rental> selectSatisfying(final Specification<Rental> specification,
 			final OrderComparator<Rental> comparator) {
 		return selectSatisfying(specification, (Comparator<Rental>) comparator);
 	}
@@ -35,8 +33,7 @@ public class SetBasedRentalRepository extends SetBasedRepository<Rental>
 	@SuppressWarnings("unchecked")
 	@Override
 	public Set<Rental> currentRentalsFor(final Customer customer) {
-		return selectSatisfying(new AndSpecification<Rental>(
-				new RentalForCustomerSpecification(customer),
+		return selectSatisfying(new AndSpecification<Rental>(new RentalForCustomerSpecification(customer),
 				new CurrentRentalSpecification()));
 	}
 }

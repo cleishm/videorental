@@ -9,8 +9,7 @@ import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Transaction;
 import com.thoughtworks.videorental.domain.repository.TransactionRepository;
 
-public class SetBasedTransactionRepository extends SetBasedRepository<Transaction>
-		implements TransactionRepository {
+public class SetBasedTransactionRepository extends SetBasedRepository<Transaction> implements TransactionRepository {
 
 	public SetBasedTransactionRepository() {
 		super();
@@ -22,8 +21,7 @@ public class SetBasedTransactionRepository extends SetBasedRepository<Transactio
 	}
 
 	@Override
-	public Set<Transaction> selectSatisfying(
-			final Specification<Transaction> specification,
+	public Set<Transaction> selectSatisfying(final Specification<Transaction> specification,
 			final OrderComparator<Transaction> comparator) {
 		return selectSatisfying(specification, (Comparator<Transaction>) comparator);
 	}

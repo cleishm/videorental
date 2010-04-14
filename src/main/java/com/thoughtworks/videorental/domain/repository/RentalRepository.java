@@ -21,11 +21,9 @@ public interface RentalRepository {
 
 	Set<Rental> selectSatisfying(Specification<Rental> specification);
 
-	Set<Rental> selectSatisfying(Specification<Rental> specification,
-			OrderComparator<Rental> comparator);
+	Set<Rental> selectSatisfying(Specification<Rental> specification, OrderComparator<Rental> comparator);
 
-	Rental selectUnique(Specification<Rental> specification)
-			throws NonUniqueObjectSelectedException;
-	
+	Rental selectUnique(Specification<Rental> specification) throws NonUniqueObjectSelectedException;
+
 	Set<Rental> currentRentalsFor(Customer customer);
 }

@@ -26,7 +26,7 @@ public class CustomerLoginInterceptor extends AbstractInterceptor {
 		}
 		final String result = invocation.invoke();
 		if (action instanceof LoginAction) {
-			session.put(USER_KEY, ((LoginAction)action).getLoggedInCustomer());
+			session.put(USER_KEY, ((LoginAction) action).getLoggedInCustomer());
 		}
 		return result;
 	}

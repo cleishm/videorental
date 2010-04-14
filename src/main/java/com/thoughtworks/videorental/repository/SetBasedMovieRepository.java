@@ -11,13 +11,12 @@ import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.repository.MovieRepository;
 import com.thoughtworks.videorental.domain.specification.MovieWithTitleSpecification;
 
-public class SetBasedMovieRepository extends SetBasedRepository<Movie>
-		implements MovieRepository {
+public class SetBasedMovieRepository extends SetBasedRepository<Movie> implements MovieRepository {
 
 	public SetBasedMovieRepository() {
 		super();
 	}
-	
+
 	public SetBasedMovieRepository(final Collection<Movie> entities) {
 		super(entities);
 	}
@@ -28,9 +27,7 @@ public class SetBasedMovieRepository extends SetBasedRepository<Movie>
 	}
 
 	@Override
-	public Set<Movie> selectSatisfying(
-			final Specification<Movie> specification,
-			final OrderComparator<Movie> comparator) {
+	public Set<Movie> selectSatisfying(final Specification<Movie> specification, final OrderComparator<Movie> comparator) {
 		return selectSatisfying(specification, (Comparator<Movie>) comparator);
 	}
 

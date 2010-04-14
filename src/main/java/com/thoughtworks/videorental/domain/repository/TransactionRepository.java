@@ -20,9 +20,7 @@ public interface TransactionRepository {
 
 	Set<Transaction> selectSatisfying(Specification<Transaction> specification);
 
-	Set<Transaction> selectSatisfying(Specification<Transaction> specification,
-			OrderComparator<Transaction> comparator);
+	Set<Transaction> selectSatisfying(Specification<Transaction> specification, OrderComparator<Transaction> comparator);
 
-	Transaction selectUnique(Specification<Transaction> specification)
-			throws NonUniqueObjectSelectedException;
+	Transaction selectUnique(Specification<Transaction> specification) throws NonUniqueObjectSelectedException;
 }

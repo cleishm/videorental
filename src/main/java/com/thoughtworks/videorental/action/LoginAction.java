@@ -17,7 +17,7 @@ public class LoginAction extends ActionSupport {
 	public LoginAction(final CustomerRepository customerRepository) {
 		this.customerRepository = customerRepository;
 	}
-	
+
 	public void setCustomerName(final String customer) {
 		this.customerName = customer;
 	}
@@ -25,7 +25,7 @@ public class LoginAction extends ActionSupport {
 	public Set<Customer> getCustomers() {
 		return customerRepository.selectAll(new CustomersOrderedByNameComparator());
 	}
-	
+
 	public Customer getLoggedInCustomer() {
 		return loggedInCustomer;
 	}
@@ -35,13 +35,12 @@ public class LoginAction extends ActionSupport {
 		if (customerName == null) {
 			return LOGIN;
 		}
-		
-		loggedInCustomer = customerRepository.selectUnique(
-				new CustomerWithNameSpecification(customerName));
+
+		loggedInCustomer = customerRepository.selectUnique(new CustomerWithNameSpecification(customerName));
 		if (loggedInCustomer == null) {
 			return LOGIN;
 		}
-		
+
 		return SUCCESS;
 	}
 }

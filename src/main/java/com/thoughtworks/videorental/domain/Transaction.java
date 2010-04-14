@@ -17,7 +17,7 @@ public class Transaction {
 		this.customer = customer;
 		this.rentals = Collections.unmodifiableSet(new HashSet<Rental>(rentals));
 	}
-	
+
 	public Customer getCustomer() {
 		return customer;
 	}
