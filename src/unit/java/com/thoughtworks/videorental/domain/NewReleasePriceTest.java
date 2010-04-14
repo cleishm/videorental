@@ -15,11 +15,9 @@ public class NewReleasePriceTest {
     }
 	
 	@Test
-	public void shouldGiveDiscountOfOneDayPerWeekRented() throws Exception {
+	public void shouldGiveDiscountOfOneDayForAFullWeek() throws Exception {
 		assertEquals(18.0, NEW_RELEASE_PRICE.getCharge(6));
 		assertEquals(18.0, NEW_RELEASE_PRICE.getCharge(7));
-		assertEquals(36.0, NEW_RELEASE_PRICE.getCharge(14));
-		assertEquals(54.0, NEW_RELEASE_PRICE.getCharge(21));
 	}
 
 	@Test
