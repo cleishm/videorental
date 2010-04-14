@@ -8,13 +8,13 @@ import com.thoughtworks.videorental.domain.Rental;
 import com.thoughtworks.videorental.domain.repository.RentalRepository;
 import com.thoughtworks.videorental.interceptor.CustomerAware;
 
-public class ViewRentedMoviesAction extends ActionSupport implements CustomerAware {
+public class ViewCurrentRentalsAction extends ActionSupport implements CustomerAware {
 
 	private final RentalRepository rentalRepository;
 	private Collection<Rental> rentals;
 	private Customer customer;
 
-	public ViewRentedMoviesAction(final RentalRepository rentalRepository) {
+	public ViewCurrentRentalsAction(final RentalRepository rentalRepository) {
 		this.rentalRepository = rentalRepository;
 	}
 

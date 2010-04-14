@@ -10,7 +10,7 @@ import com.thoughtworks.videorental.action.LogoutAction;
 import com.thoughtworks.videorental.action.RentMoviesAction;
 import com.thoughtworks.videorental.action.ViewHistoryAction;
 import com.thoughtworks.videorental.action.ViewHomeAction;
-import com.thoughtworks.videorental.action.ViewRentedMoviesAction;
+import com.thoughtworks.videorental.action.ViewCurrentRentalsAction;
 import com.thoughtworks.videorental.domain.Customer;
 import com.thoughtworks.videorental.domain.Movie;
 import com.thoughtworks.videorental.domain.repository.CustomerRepository;
@@ -51,8 +51,8 @@ public class VideoRentalConfiguration {
 	}
 	
 	@Bean(scope = "prototype")
-	public ViewRentedMoviesAction viewRentedMoviesAction() {
-		return new ViewRentedMoviesAction(rentalRepository());
+	public ViewCurrentRentalsAction viewCurrentRentalsAction() {
+		return new ViewCurrentRentalsAction(rentalRepository());
 	}
 
 	@Bean(scope = "singleton")

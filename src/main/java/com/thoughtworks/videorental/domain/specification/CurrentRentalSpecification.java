@@ -9,7 +9,7 @@ public class CurrentRentalSpecification implements Specification<Rental> {
 
 	@Override
 	public boolean isSatisfiedBy(final Rental rental) {
-		return rental.getPeriod().getEndDate().isBeforeNow();
+		return !rental.getPeriod().getEndDate().isBeforeNow();
 	}
 
 	@Override

@@ -38,7 +38,7 @@
 			<result type="freemarker">history.ftl</result>
 		</action>
 				
-		<action name="rentals" class="viewRentedMoviesAction">
+		<action name="rentals" class="viewCurrentRentalsAction">
 			<result type="freemarker">rentals.ftl</result>
 		</action>
 		
