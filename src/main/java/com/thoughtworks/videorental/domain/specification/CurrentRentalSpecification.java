@@ -2,6 +2,7 @@ package com.thoughtworks.videorental.domain.specification;
 
 import org.hibernate.Criteria;
 
+import com.thoughtworks.datetime.LocalDate;
 import com.thoughtworks.ddd.specification.Specification;
 import com.thoughtworks.videorental.domain.Rental;
 
@@ -9,7 +10,7 @@ public class CurrentRentalSpecification implements Specification<Rental> {
 
 	@Override
 	public boolean isSatisfiedBy(final Rental rental) {
-		return rental.getPeriod().getEndDate().isAfterNow();
+		return rental.getPeriod().getEndDate().isOnOrAfter(LocalDate.today());
 	}
 
 	@Override

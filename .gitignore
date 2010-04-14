@@ -1,2 +1,5 @@
 bin
 target
+.DS_Store
+lib/.DS_Store
+lib/tools/.DS_Store
