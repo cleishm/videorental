@@ -23,8 +23,8 @@
 	<classpathentry kind="lib" path="lib/runtime/spring-web-2.5.6.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/org.springframework.config.java-1.0.0.M4.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/struts2-spring-plugin-2.1.8.1.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/tw-commons-datetime-1.0.jar"/>
-	<classpathentry kind="lib" path="lib/runtime/tw-commons-ddd-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/tw-commons-datetime-1.0.jar" sourcepath="lib/sources/tw-commons-datetime-source-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/runtime/tw-commons-ddd-1.0.jar" sourcepath="lib/sources/tw-commons-ddd-source-1.0.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/cglib-nodep-2.1_3.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/joda-time-1.6.jar"/>
 	<classpathentry kind="lib" path="lib/runtime/hibernate-annotations.jar"/>
