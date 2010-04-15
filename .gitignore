@@ -1,5 +1,14 @@
-bin
+/bin
 target
 .DS_Store
 lib/.DS_Store
 lib/tools/.DS_Store
+acceptance/bin
+acceptance/.settings/
+acceptance/logs/
+acceptance/reports/
+acceptance/sahi/userdata/browser
+acceptance/sahi/userdata/certs
+acceptance/sahi/userdata/logs
+
+

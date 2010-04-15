@@ -41,20 +41,25 @@ public class JettyLauncher {
     }
 
     private static void startJetty(int startPort, int stopPort, String warPath) throws Exception {
-    System.out.println("Starting jetty with " + warPath + " on " + startPort);
+    	System.out.println("Starting jetty with " + warPath + " on " + startPort);
         Thread monitor = new MonitorThread(stopPort);
 
-        server = new Server(startPort);
+        start(startPort, warPath);
+
+        monitor.start();
+        server.join();
+    }
+
+	public static void start(int startPort, String warPath) throws Exception {
+		server = new Server(startPort);
 
         server.setConnectors(new Connector[] { CreateConnector(startPort) });
 
         WebAppContext context = new WebAppContext(warPath, "/");
         server.addHandler(context);
 
-        monitor.start();
         server.start();
-        server.join();
-    }
+	}
 
     private static void stopJetty(int stopPort) throws Exception {
         Socket s = new Socket(InetAddress.getByName("127.0.0.1"), stopPort);
@@ -94,13 +99,18 @@ public class JettyLauncher {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(accept.getInputStream()));
                 reader.readLine();
                 System.out.println("*** stopping jetty embedded server");
-                server.stop();
+                JettyLauncher.stop();
                 accept.close();
                 socket.close();
             } catch(Exception e) {
                 throw new RuntimeException(e);
             }
         }
+        
+    }
+    
+    public static void stop() throws Exception {
+        server.stop();
     }
 
 }

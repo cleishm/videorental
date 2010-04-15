@@ -1,0 +1,3 @@
+_assertNull(_getGlobal("gl1"));
+_setGlobal("gl1", "hahaha");
+_assertEqual("hahaha", _getGlobal("gl1"));

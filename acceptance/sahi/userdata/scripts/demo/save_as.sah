@@ -1,0 +1,18 @@
+var f = new java.io.File("c:/testsaveas_x.zip");
+if (f.exists()){
+	f["delete"]();
+}
+_click(_link("Save As Test"));
+_assertExists(_link("testsaveas.zip"));
+_assertExists(_link("Back"));
+_click(_link("testsaveas.zip"));
+_assertEqual("testsaveas.zip", _lastDownloadedFileName());
+_wait(2000);
+_saveDownloadedAs("c:/testsaveas_x.zip");
+_clearLastDownloadedFileName();
+_assertNotEqual("testsaveas.zip", _lastDownloadedFileName());
+_click(_link("Back"));
+_assertExists(_link("Link Test"));
+var file = new java.io.File("c:/testsaveas_x.zip");
+var $exists = file.exists();
+_assertTrue($exists)
