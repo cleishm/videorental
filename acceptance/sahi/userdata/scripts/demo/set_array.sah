@@ -1,0 +1,8 @@
+var $linkArray = new Array();
+for(var $i = 0; $i < 5; $i++){
+	_set($linkArray[$i], top.document.links[$i].href);
+} 
+               
+// browse the saved links
+var $url =  $linkArray[0];
+_navigateTo($url);

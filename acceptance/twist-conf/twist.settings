@@ -1,0 +1,5 @@
+Sahi:
+	class: net.sf.sahi.client.Browser
+	fieldName: browser
+language:
+	class: com.thoughtworks.twist.language.java.Java
