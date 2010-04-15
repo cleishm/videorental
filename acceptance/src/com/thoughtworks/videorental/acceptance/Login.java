@@ -18,4 +18,9 @@ public class Login {
 		browser.submit("login").click();
 	}
 
+	public void logout() throws Exception {
+		browser.link("Logout").click();
+	}
+
+
 }

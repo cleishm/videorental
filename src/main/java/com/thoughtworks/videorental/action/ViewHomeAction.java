@@ -18,7 +18,14 @@ public class ViewHomeAction extends ActionSupport implements CustomerAware {
 	}
 
 	public Set<Movie> getMovies() {
-		return movieRepository.selectAll();
+		Set<Movie> availableMovies = movieRepository.selectAll();
+		
+		/*
+		customer.currentRentals()
+		available.removeAll()
+		 */
+		
+		return availableMovies;
 	}
 	
 	@Override

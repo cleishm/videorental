@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.config.java.annotation.Bean;
 import org.springframework.config.java.annotation.Configuration;
 
+import com.thoughtworks.videorental.action.AddUserAction;
 import com.thoughtworks.videorental.action.LoginAction;
 import com.thoughtworks.videorental.action.LogoutAction;
 import com.thoughtworks.videorental.action.RentMoviesAction;
@@ -59,6 +60,11 @@ public class VideoRentalConfiguration {
 	@Bean(scope = "prototype")
 	public ViewCurrentRentalsAction viewCurrentRentalsAction() {
 		return new ViewCurrentRentalsAction(rentalRepository());
+	}
+
+	@Bean(scope = "prototype")
+	public AddUserAction addUserAction() {
+		return new AddUserAction(customerRepository());
 	}
 
 	@Bean(scope = "singleton")
