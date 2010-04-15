@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="src" path="src/unit/java"/>
 	<classpathentry kind="src" path="src/unit/resources"/>
-	<classpathentry kind="src" path="src/acceptance/java"/>
 	<classpathentry kind="src" path="src/util/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/runtime/commons-lang-2.5.jar"/>

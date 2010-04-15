@@ -14,7 +14,6 @@
     <property name="main.resources.dir" value="${basedir}/src/main/resources"/>
     <property name="util.src.dir" value="${basedir}/src/util/java"/>
     <property name="unit.src.dir" value="${basedir}/src/unit/java"/>
-    <property name="acceptance.src.dir" value="${basedir}/src/acceptance/java"/>
 
     <property name="webapp.dir" value="${basedir}/src/main/webapp"/>
     <property name="lib.dir" value="${basedir}/lib"/>
@@ -33,24 +32,11 @@
     <property name="main.jar" value="${target.dir}/${app.name}.jar"/>
     <property name="util.jar" value="${target.dir}/${app.name}-util.jar"/>
     <property name="unit.jar" value="${target.dir}/${app.name}-unit.jar"/>
-    <property name="acceptance.jar"
-            value="${target.dir}/${app.name}-acceptance.jar"/>
 
     <!-- Testing -->
-    <property name="htmlunit.webdriver.class"
-            value="org.openqa.selenium.htmlunit.HtmlUnitDriver"/>
-    <property name="ie.webdriver.class"
-            value="org.openqa.selenium.ie.InternetExplorerDriver"/>
-    <property name="firefox.webdriver.class"
-            value="org.openqa.selenium.firefox.FirefoxDriver"/>
-    <property name="chrome.webdriver.class"
-            value="org.openqa.selenium.chrome.ChromeDriver"/>
-
     <property name="application.host" value="localhost"/>
     <property name="application.port" value="8080"/>
     <property name="application.url" value="http://${application.host}:${application.port}/${app.name}/"/>
-
-    <property name="jetty.stop.port" value="8079"/>
 
     <!-- Paths -->
     <fileset id="runtime.libraries" dir="${lib.dir}/runtime" includes="*.jar"/>
@@ -75,8 +61,6 @@
     <path id="unit.build.classpath">
         <pathelement location="${main.jar}"/>
         <path refid="main.build.classpath"/>
-        <fileset refid="runtime.libraries"/>
-        <fileset refid="build.libraries"/>
         <fileset refid="tools.libraries"/>
     </path>
 
@@ -85,14 +69,8 @@
         <pathelement location="${unit.jar}"/>
     </path>
 
-    <path id="acceptance.build.classpath">
-        <fileset refid="tools.libraries"/>
-    </path>
-
-    <path id="acceptance.runtime.classpath">
-        <path refid="acceptance.build.classpath"/>
+    <path id="jetty.runtime.classpath">
         <path refid="util.runtime.classpath"/>
-        <pathelement location="${acceptance.jar}"/>
     </path>
 
     <!-- MacroDefs -->
@@ -138,9 +116,6 @@
                 </classpath>
                 <formatter type="xml"/>
 
-                <sysproperty key="webdriver.class" value="${webdriver.class}"/>
-                <sysproperty key="application.url" value="${application.url}"/>
-
                 <batchtest todir="${reports.dir}/@{type}"
                         failureproperty="@{type}.test.failed">
                     <fileset dir="@{srcdir}">
@@ -166,22 +141,10 @@
         <attribute name="war"/>
         <sequential>
             <echo message="starting jetty"/>
-            <java classname="com.thoughtworks.jetty.JettyLauncher"
-                    classpathref="acceptance.runtime.classpath" fork="true">
-                <arg value="-start"/>
-                <arg value="${application.port}"/>
-                <arg value="${jetty.stop.port}"/>
+            <java classname="com.thoughtworks.jetty.JettyServer"
+                    classpathref="jetty.runtime.classpath" fork="true">
                 <arg value="@{war}"/>
-            </java>
-        </sequential>
-    </macrodef>
-
-    <macrodef name="jettyStopServer">
-        <sequential>
-            <java classname="com.thoughtworks.JettyLauncher"
-                    classpathref="acceptance.class.path" fork="true">
-                <arg value="-stop"/>
-                <arg value="${jetty.stop.port}"/>
+                <arg value="${application.port}"/>
             </java>
         </sequential>
     </macrodef>
@@ -201,12 +164,6 @@
         <compileToJar srcdir="${unit.src.dir}"
                 destfile="${unit.jar}"
                 classpathref="unit.build.classpath"/>
-    </target>
-
-    <target name="acceptance-jar">
-        <compileToJar srcdir="${acceptance.src.dir}"
-                destfile="${acceptance.jar}"
-                classpathref="acceptance.build.classpath"/>
     </target>
 
     <target name="util-jar">
@@ -234,28 +191,8 @@
                 classpathref="unit.runtime.classpath"/>
     </target>
 
-    <target name="acceptance-test" depends="acceptance-jar, war, util-jar"
-            description="Run acceptance tests">
-        <parallel>
-            <daemons>
-                <jettyStartServer war="${main.war}"/>
-            </daemons>
-            <sequential>
-                <echo message="Waiting for jetty" />
-                <waitfor>
-                    <socket server="127.0.0.1" port="${application.port}"/>
-                </waitfor>
-                <!-- Default driver is htmlunit -->
-                <property name="webdriver.class"
-                    value="${htmlunit.webdriver.class}"/>
-                <testAndReport type="acceptance" srcdir="${acceptance.src.dir}"
-                        classpathref="acceptance.runtime.classpath"/>
-            </sequential>
-        </parallel>
-    </target>
-
     <!-- Helpers/Wrappers -->
-    <target name="build" depends="unit-test, acceptance-test, war"
+    <target name="build" depends="unit-test, war"
             description="Produce all artifacts"/>
     <target name="rebuild" depends="clean, build"
             description="Clean and build"/>
@@ -263,17 +200,5 @@
     <target name="jetty" depends="war, util-jar"
             description="Start jetty with application">
         <jettyStartServer war="${main.war}"/>
-    </target>
-
-    <target name="ie-webdriver">
-        <property name="webdriver.class" value="${ie.webdriver.class}"/>
-    </target>
-
-    <target name="firefox-webdriver">
-        <property name="webdriver.class" value="${firefox.webdriver.class}"/>
-    </target>
-
-    <target name="chrome-webdriver">
-        <property name="webdriver.class" value="${chrome.webdriver.class}"/>
     </target>
 </project>
