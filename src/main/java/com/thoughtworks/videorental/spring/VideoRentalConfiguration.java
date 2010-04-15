@@ -9,6 +9,7 @@ import com.thoughtworks.videorental.action.LoginAction;
 import com.thoughtworks.videorental.action.LogoutAction;
 import com.thoughtworks.videorental.action.RentMoviesAction;
 import com.thoughtworks.videorental.action.ViewHistoryAction;
+import com.thoughtworks.videorental.action.ViewAdminAction;
 import com.thoughtworks.videorental.action.ViewHomeAction;
 import com.thoughtworks.videorental.action.ViewCurrentRentalsAction;
 import com.thoughtworks.videorental.domain.Customer;
@@ -48,6 +49,11 @@ public class VideoRentalConfiguration {
 	@Bean(scope = "prototype")
 	public ViewHistoryAction viewHistoryAction() {
 		return new ViewHistoryAction(transactionRepository());
+	}
+
+	@Bean(scope = "prototype")
+	public ViewAdminAction viewAdminAction() {
+		return new ViewAdminAction(customerRepository());
 	}
 	
 	@Bean(scope = "prototype")
