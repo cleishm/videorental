@@ -9,5 +9,9 @@
 	<li>${user.name}</li>
 	</#list>
 	</ul>
+	<form action="addUser" method="POST">
+		<input type="text" name="name"></input>
+		<input type="submit" name="Add">Add</input>
+	</form>
 </body>
 </html>

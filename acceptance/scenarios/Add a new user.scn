@@ -1,0 +1,11 @@
+Tags:
+Preconditions:Server Is Running
+Login:
+#login as "James Madison"
+
+Administration:
+#add a user named "New User"
+
+Login:
+#logout
+#login as "New User"

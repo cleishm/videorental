@@ -17,5 +17,9 @@ public class Login {
 		browser.select("customerName").choose(userName);
 		browser.submit("login").click();
 	}
+	
+	public void logout() {
+		browser.link("Logout").click();
+	}
 
 }
