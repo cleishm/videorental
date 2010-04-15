@@ -17,9 +17,10 @@ public class Login {
 		browser.select("customerName").choose(userName);
 		browser.submit("login").click();
 	}
-	
-	public void logout() {
+
+	public void logout() throws Exception {
 		browser.link("Logout").click();
 	}
+
 
 }
