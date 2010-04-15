@@ -11,6 +11,7 @@ import com.thoughtworks.videorental.interceptor.CustomerAware;
 public class ViewCurrentRentalsAction extends ActionSupport implements CustomerAware {
 
 	private final RentalRepository rentalRepository;
+
 	private Collection<Rental> rentals;
 	private Customer customer;
 
@@ -30,6 +31,7 @@ public class ViewCurrentRentalsAction extends ActionSupport implements CustomerA
 	@Override
 	public String execute() throws Exception {
 		rentals = rentalRepository.currentRentalsFor(customer);
+
 		return SUCCESS;
 	}
 
