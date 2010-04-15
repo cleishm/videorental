@@ -8,6 +8,7 @@ import org.springframework.config.java.annotation.Configuration;
 import com.thoughtworks.videorental.action.LoginAction;
 import com.thoughtworks.videorental.action.LogoutAction;
 import com.thoughtworks.videorental.action.RentMoviesAction;
+import com.thoughtworks.videorental.action.ViewAdminAction;
 import com.thoughtworks.videorental.action.ViewHomeAction;
 import com.thoughtworks.videorental.action.ViewRentedMoviesAction;
 import com.thoughtworks.videorental.domain.Customer;
@@ -42,6 +43,11 @@ public class VideoRentalConfiguration {
 	@Bean(scope = "prototype")
 	public RentMoviesAction rentMoviesAction() {
 		return new RentMoviesAction(movieRepository(), rentalRepository(), transactionRepository());
+	}
+
+	@Bean(scope = "prototype")
+	public ViewAdminAction viewAdminAction() {
+		return new ViewAdminAction(customerRepository());
 	}
 
 	@Bean(scope = "prototype")

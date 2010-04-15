@@ -41,5 +41,9 @@
 		<action name="rentals" class="viewRentedMoviesAction">
 			<result type="freemarker">rentals.ftl</result>
 		</action>
+
+		<action name="admin" class="viewAdminAction">
+			<result type="freemarker">admin.ftl</result>
+		</action>
 	</package>
 </struts>
