@@ -10,7 +10,7 @@ public class Transaction {
 
 	public Transaction(final Customer customer, final Set<Rental> rentals) {
 		for (final Rental rental : rentals) {
-			if (rental.getCustomer() != customer) {
+			if (!rental.getCustomer().equals(customer)) {
 				throw new IllegalArgumentException("Rentals must be for the same customer");
 			}
 		}
