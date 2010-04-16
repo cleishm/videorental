@@ -20,32 +20,27 @@ import com.thoughtworks.datetime.Period;
 public class CustomerTest {
 
 	private static final String RESOURCES_PATH = "src/unit/resources";
-
-	private static final Customer CUSTOMER = new Customer("John Smith");
-	private static final Movie python = new Movie(
-			"Monty Python and the Holy Grail", Movie.REGULAR);
-	private static final Movie ran = new Movie("Ran", Movie.REGULAR);
-	private static final Movie la = new Movie("LA Confidential", Movie.NEW_RELEASE);
-	private static final Movie trek = new Movie("Star Trek 13.2", Movie.NEW_RELEASE);
-	private static final Movie wallace = new Movie("Wallace and Gromit", Movie.CHILDRENS);
 	private static final Set<Rental> EMPTY_RENTALS = Collections.emptySet();
-	private static final Set<Rental> MIXED_RENTALS;
-
-	static {
-		final Set<Rental> rentals = new LinkedHashSet<Rental>();
-		rentals.add(new Rental(CUSTOMER, python, Period.of(LocalDate.today(), Duration.ofDays(3))));
-		rentals.add(new Rental(CUSTOMER, ran, Period.of(LocalDate.today(), Duration.ofDays(1))));
-		rentals.add(new Rental(CUSTOMER, la, Period.of(LocalDate.today(), Duration.ofDays(2))));
-		rentals.add(new Rental(CUSTOMER, trek, Period.of(LocalDate.today(), Duration.ofDays(1))));
-		rentals.add(new Rental(CUSTOMER, wallace, Period.of(LocalDate.today(), Duration.ofDays(6))));
-		MIXED_RENTALS = Collections.unmodifiableSet(rentals);
-	}
 
 	private Customer customer;
+	private Set<Rental> mixedRentals;
 
 	@Before
 	public void setUp() {
 		customer = new Customer("Dinsdale Pirhana");
+
+		final Movie montyPython = new Movie("Monty Python and the Holy Grail", Movie.REGULAR);
+		final Movie ran = new Movie("Ran", Movie.REGULAR);
+		final Movie laConfidential = new Movie("LA Confidential", Movie.NEW_RELEASE);
+		final Movie starTrek = new Movie("Star Trek 13.2", Movie.NEW_RELEASE);
+		final Movie WallaceAndGromit = new Movie("Wallace and Gromit", Movie.CHILDRENS);
+
+		mixedRentals = new LinkedHashSet<Rental>();
+		mixedRentals.add(new Rental(customer, montyPython, Period.of(LocalDate.today(), Duration.ofDays(3))));
+		mixedRentals.add(new Rental(customer, ran, Period.of(LocalDate.today(), Duration.ofDays(1))));
+		mixedRentals.add(new Rental(customer, laConfidential, Period.of(LocalDate.today(), Duration.ofDays(2))));
+		mixedRentals.add(new Rental(customer, starTrek, Period.of(LocalDate.today(), Duration.ofDays(1))));
+		mixedRentals.add(new Rental(customer, WallaceAndGromit, Period.of(LocalDate.today(), Duration.ofDays(6))));
 	}
 
 	@Test
@@ -55,13 +50,13 @@ public class CustomerTest {
 
 	@Test
 	public void testCustomer() throws Exception {
-		equalsFile("output1", customer.statement(MIXED_RENTALS));
+		equalsFile("output1", customer.statement(mixedRentals));
 	}
 
 	protected void equalsFile(String fileName, String actualValue) throws IOException {
 		final BufferedReader file = new BufferedReader(new FileReader(RESOURCES_PATH + '/' + fileName));
 		final BufferedReader actualStream = new BufferedReader(new StringReader(actualValue));
-		
+
 		String thisFileLine;
 		while ((thisFileLine = file.readLine()) != null) {
 			assertEquals("in file: " + fileName, thisFileLine, actualStream.readLine());
