@@ -180,9 +180,9 @@
             <manifest>
                 <attribute name="Label" value="${build.label}"/>
             </manifest>
-        <lib refid="runtime.libraries"/>
+            <lib refid="runtime.libraries"/>
             <lib file="${main.jar}"/>
-        <classes dir="${main.resources.dir}"/>
+            <classes dir="${main.resources.dir}"/>
         </war>
     </target>
 
