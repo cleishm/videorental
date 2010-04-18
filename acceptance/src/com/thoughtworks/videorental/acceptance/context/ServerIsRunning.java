@@ -5,6 +5,8 @@ import com.thoughtworks.jetty.JettyServer;
 import net.sf.sahi.client.Browser;
 
 public class ServerIsRunning {
+	
+	private static final String WEBAPP_PATH = System.getProperty("webapp.path", "../src/main/webapp");
 
 	private JettyServer jettyServer;
 
@@ -12,7 +14,7 @@ public class ServerIsRunning {
 	}
 
 	public void setUp() throws Exception {
-		jettyServer = new JettyServer("../src/main/webapp", 8081, "/");
+		jettyServer = new JettyServer(WEBAPP_PATH, 8081, "/");
 		jettyServer.start();
 	}
 

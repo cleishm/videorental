@@ -4,7 +4,6 @@
 acceptance/bin
 acceptance/.settings/
 acceptance/logs/
-acceptance/reports/
 acceptance/sahi/userdata/browser
 acceptance/sahi/userdata/certs
 acceptance/sahi/userdata/logs
