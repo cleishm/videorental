@@ -27,7 +27,7 @@ public class CustomerTest {
 
 	@Before
 	public void setUp() {
-		customer = new Customer("Dinsdale Pirhana");
+		customer = new Customer("John Smith");
 
 		final Movie montyPython = new Movie("Monty Python and the Holy Grail", Movie.REGULAR);
 		final Movie ran = new Movie("Ran", Movie.REGULAR);
@@ -45,22 +45,25 @@ public class CustomerTest {
 
 	@Test
 	public void testEmpty() throws Exception {
-		equalsFile("outputEmpty", customer.statement(EMPTY_RENTALS));
+		String noRentalsStatement = 
+			"Rental Record for John Smith\n"
+			+ "Amount charged is $0.0\n" 
+			+ "You have a new total of 0 frequent renter points";
+		assertEquals(noRentalsStatement, customer.statement(EMPTY_RENTALS));
 	}
 
 	@Test
 	public void testCustomer() throws Exception {
-		equalsFile("output1", customer.statement(mixedRentals));
-	}
-
-	protected void equalsFile(String fileName, String actualValue) throws IOException {
-		final BufferedReader file = new BufferedReader(new FileReader(RESOURCES_PATH + '/' + fileName));
-		final BufferedReader actualStream = new BufferedReader(new StringReader(actualValue));
-
-		String thisFileLine;
-		while ((thisFileLine = file.readLine()) != null) {
-			assertEquals("in file: " + fileName, thisFileLine, actualStream.readLine());
-		}
+		String expected = 
+			"Rental Record for John Smith\n" 
+			+ "  Monty Python and the Holy Grail  -  $3.5\n"
+			+ "  Ran  -  $2.0\n"
+			+ "  LA Confidential  -  $6.0\n"
+			+ "  Star Trek 13.2  -  $3.0\n"
+			+ "  Wallace and Gromit  -  $6.0\n"
+			+ "Amount charged is $20.5\n"
+			+ "You have a new total of 6 frequent renter points";
+		assertEquals(expected, customer.statement(mixedRentals));
 	}
 
 }
