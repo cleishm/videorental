@@ -30,7 +30,6 @@
 </head>
 <body>
     <h1>Rent a Movie</h1>
-	<p class="rentalPoints">You have ${frequentRenterPoints} frequent renter points</p>
 	<form id="wizard" class="wiz-container" action="rentMovies">
 		<ul class="wiz-list">
 			<li><a href="#wizard-1">
