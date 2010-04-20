@@ -21,48 +21,53 @@ public class CustomerTest {
 
 	private static final String RESOURCES_PATH = "src/unit/resources";
 
-	private static final Customer customer = new Customer("John Smith");
 	private static final Movie python = new Movie(
 			"Monty Python and the Holy Grail", Movie.REGULAR);
-	private static final Movie ran = new Movie("Ran", Movie.REGULAR);
-	private static final Movie la = new Movie("LA Confidential", Movie.NEW_RELEASE);
-	private static final Movie trek = new Movie("Star Trek 13.2", Movie.NEW_RELEASE);
-	private static final Movie wallace = new Movie("Wallace and Gromit", Movie.CHILDRENS);
-	private static final Set<Rental> EMPTY_RENTALS = Collections.emptySet();
-	private static final Set<Rental> MIXED_RENTALS;
+	private Movie ran = new Movie("Ran", Movie.REGULAR);
+	private Movie la = new Movie("LA Confidential", Movie.NEW_RELEASE);
+	private Movie trek = new Movie("Star Trek 13.2", Movie.NEW_RELEASE);
+	private Movie wallace = new Movie("Wallace and Gromit", Movie.CHILDRENS);
+	
+	private Set<Rental> noRentals = Collections.emptySet();
+	private Set<Rental> rentals;
 
-	static {
-		final Set<Rental> rentals = new LinkedHashSet<Rental>();
+	private Customer customer;
+
+	@Before
+	public void setUp() {
+
+		customer = new Customer("John Smith");
+		
+		rentals = new LinkedHashSet<Rental>();
 		rentals.add(new Rental(customer, python, Period.of(LocalDate.today(), Duration.ofDays(3))));
 		rentals.add(new Rental(customer, ran, Period.of(LocalDate.today(), Duration.ofDays(1))));
 		rentals.add(new Rental(customer, la, Period.of(LocalDate.today(), Duration.ofDays(2))));
 		rentals.add(new Rental(customer, trek, Period.of(LocalDate.today(), Duration.ofDays(1))));
 		rentals.add(new Rental(customer, wallace, Period.of(LocalDate.today(), Duration.ofDays(6))));
-		MIXED_RENTALS = Collections.unmodifiableSet(rentals);
-	}
-
-	@Before
-	public void setUp() {
+		
 	}
 
 	@Test
 	public void testEmpty() throws Exception {
-//		equalsFile("outputEmpty", customer.statement(new Transaction(customer, EMPTY_RENTALS)));
+		String noRentalsStatement = 
+			"Rental Record for John Smith\n"
+			+ "Amount charged is $0.0\n" 
+			+ "You have a new total of 0 frequent renter points";
+		assertEquals(noRentalsStatement, customer.statement(noRentals));
 	}
-//
-//	@Test
-//	public void testCustomer() throws Exception {
-//		equalsFile("output1", customer.statement(new Transaction(customer, MIXED_RENTALS)));
-//	}
 
-	protected void equalsFile(String fileName, String actualValue) throws IOException {
-		final BufferedReader file = new BufferedReader(new FileReader(RESOURCES_PATH + '/' + fileName));
-		final BufferedReader actualStream = new BufferedReader(new StringReader(actualValue));
-		
-		String thisFileLine;
-		while ((thisFileLine = file.readLine()) != null) {
-			assertEquals("in file: " + fileName, thisFileLine, actualStream.readLine());
-		}
+	@Test
+	public void testCustomer() throws Exception {
+		String expected = 
+				"Rental Record for John Smith\n" 
+				+ "  Monty Python and the Holy Grail  -  $3.5\n"
+				+ "  Ran  -  $2.0\n"
+				+ "  LA Confidential  -  $6.0\n"
+				+ "  Star Trek 13.2  -  $3.0\n"
+				+ "  Wallace and Gromit  -  $6.0\n"
+				+ "Amount charged is $20.5\n"
+				+ "You have a new total of 6 frequent renter points";
+		assertEquals(expected, customer.statement(rentals));
 	}
 
 }
